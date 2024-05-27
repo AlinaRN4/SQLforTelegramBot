@@ -28,6 +28,7 @@ namespace SQLforTelegramBot
 
         private List<string[]> news = new List<string[]>();
         private List<string[]> messages = new List<string[]>();
+        private List<string[]> trainers = new List<string[]>();
 
         private void Form1_Load_1(object sender, EventArgs e)
         {
@@ -408,6 +409,145 @@ namespace SQLforTelegramBot
                 catch (Exception ex)
                 {
                     MessageBox.Show("Ошибка при удалении сообщения: " + ex.Message);
+                }
+            }
+        }
+
+        private void button11_Click(object sender, EventArgs e)
+        {
+            SqlDataReader dataReader = null;
+            string[] trainer = null;
+            try
+            {
+                SqlCommand sqlCommand = new SqlCommand("SELECT ScheduleId, TrainerName, DayOfWeek, StartTime, EndTime FROM PersonalTrainersSchedule", sqlConnection);
+
+                dataReader = sqlCommand.ExecuteReader();
+
+                while (dataReader.Read())
+                {
+                    trainer = new string[]
+                    {
+                    Convert.ToString(dataReader["ScheduleId"]),
+                    Convert.ToString(dataReader["TrainerName"]),
+                     Convert.ToString(dataReader["DayOfWeek"]),
+                    Convert.ToString(dataReader["StartTime"]),
+                     Convert.ToString(dataReader["EndTime"]),
+                   };
+
+                    trainers.Add(trainer);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            finally
+            {
+                if (dataReader != null && !dataReader.IsClosed)
+                {
+                    dataReader.Close();
+                }
+            }
+            RefreshList(trainers, listView4);
+        }
+
+        private void textBox19_TextChanged(object sender, EventArgs e)
+        {
+            filteredList = trainers.Where((x) =>
+            x[0].ToLower().Contains(textBox19.Text.ToLower()) || x[1].ToLower().Contains(textBox19.Text.ToLower())).ToList();
+
+            RefreshList(filteredList, listView4);
+        }
+
+        private void button14_Click(object sender, EventArgs e)
+        {
+            SqlCommand command = new SqlCommand($"INSERT INTO [PersonalTrainersSchedule] (TrainerName, DayOfWeek, StartTime, EndTime) VALUES (N'{textBox31.Text}', N'{textBox30.Text}', '{textBox29.Text}', '{textBox28.Text}')", sqlConnection);
+            MessageBox.Show(command.ExecuteNonQuery().ToString());
+            MessageBox.Show("Расписание добавлено!");
+        }
+
+        private void button12_Click(object sender, EventArgs e)
+        {
+            // Получаем значения из текстовых полей
+            string trainerId = textBox20.Text;
+            string name = textBox21.Text;
+            string day = textBox22.Text;
+            string start = textBox23.Text;
+            string end = textBox24.Text;
+            
+
+            // Формируем запрос на обновление данных в базе
+            string updateQuery = "UPDATE PersonalTrainersSchedule SET ";
+            bool needComma = false;
+
+            if (!string.IsNullOrEmpty(name))
+            {
+                updateQuery += "TrainerName = N'" + name + "'";
+                needComma = true;
+            }
+            if (!string.IsNullOrEmpty(day))
+            {
+                if (needComma) updateQuery += ", ";
+                updateQuery += "DayOfWeek = N'" + day + "'";
+                needComma = true;
+            }
+            if (!string.IsNullOrEmpty(start))
+            {
+                if (needComma) updateQuery += ", ";
+                updateQuery += "StartTime = N'" + start + "'";
+                needComma = true;
+            }
+            if (!string.IsNullOrEmpty(end))
+            {
+                if (needComma) updateQuery += ", ";
+                updateQuery += "EndTime = N'" + end + "'";
+                needComma = true;
+            }
+            
+
+            updateQuery += " WHERE ScheduleId = " + trainerId;
+
+            // Выполняем запрос на обновление данных в базе
+            try
+            {
+                SqlCommand sqlCommand = new SqlCommand(updateQuery, sqlConnection);
+                sqlCommand.ExecuteNonQuery();
+                MessageBox.Show("Данные успешно обновлены!");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Ошибка при обновлении данных: " + ex.Message);
+            }
+            RefreshList(trainers, listView4);
+        }
+
+        private void button13_Click(object sender, EventArgs e)
+        {
+            string trainerId = textBox20.Text;
+
+            if (MessageBox.Show("Вы действительно хотите удалить расписание?", "Подтверждение удаления", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            {
+                string deleteQuery = "DELETE FROM PersonalTrainersSchedule WHERE ScheduleId = " + trainerId;
+
+                try
+                {
+
+                    SqlCommand sqlcommand = new SqlCommand(deleteQuery, sqlConnection);
+                    int rowsAffected = sqlcommand.ExecuteNonQuery();
+
+                    if (rowsAffected > 0)
+                    {
+                        MessageBox.Show("Клиент с идентификатором " + trainerId + " успешно удален.");
+                    }
+                    else
+                    {
+                        MessageBox.Show("Клиент с идентификатором " + trainerId + " не найден.");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Ошибка при удалении клиента: " + ex.Message);
                 }
             }
         }
