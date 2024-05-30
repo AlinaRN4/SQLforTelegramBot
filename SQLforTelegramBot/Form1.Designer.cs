@@ -30,6 +30,9 @@
         {
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.label31 = new System.Windows.Forms.Label();
+            this.textBox25 = new System.Windows.Forms.TextBox();
+            this.label30 = new System.Windows.Forms.Label();
             this.label34 = new System.Windows.Forms.Label();
             this.label35 = new System.Windows.Forms.Label();
             this.label36 = new System.Windows.Forms.Label();
@@ -131,7 +134,8 @@
             this.columnHeader15 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader16 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader17 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.label30 = new System.Windows.Forms.Label();
+            this.label32 = new System.Windows.Forms.Label();
+            this.textBox26 = new System.Windows.Forms.TextBox();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -155,6 +159,8 @@
             // tabPage1
             // 
             this.tabPage1.BackColor = System.Drawing.Color.Transparent;
+            this.tabPage1.Controls.Add(this.label31);
+            this.tabPage1.Controls.Add(this.textBox25);
             this.tabPage1.Controls.Add(this.label30);
             this.tabPage1.Controls.Add(this.label34);
             this.tabPage1.Controls.Add(this.label35);
@@ -186,6 +192,36 @@
             this.tabPage1.Size = new System.Drawing.Size(1386, 823);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Клиенты";
+            // 
+            // label31
+            // 
+            this.label31.AutoSize = true;
+            this.label31.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label31.Location = new System.Drawing.Point(691, 334);
+            this.label31.Name = "label31";
+            this.label31.Size = new System.Drawing.Size(138, 20);
+            this.label31.TabIndex = 29;
+            this.label31.Text = "Пароль тренера:";
+            // 
+            // textBox25
+            // 
+            this.textBox25.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.textBox25.Font = new System.Drawing.Font("Yu Gothic UI", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox25.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.textBox25.Location = new System.Drawing.Point(844, 331);
+            this.textBox25.Name = "textBox25";
+            this.textBox25.Size = new System.Drawing.Size(246, 29);
+            this.textBox25.TabIndex = 28;
+            // 
+            // label30
+            // 
+            this.label30.AutoSize = true;
+            this.label30.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label30.Location = new System.Drawing.Point(626, 287);
+            this.label30.Name = "label30";
+            this.label30.Size = new System.Drawing.Size(203, 20);
+            this.label30.TabIndex = 27;
+            this.label30.Text = "Конечное время 00:00:00:";
             // 
             // label34
             // 
@@ -221,7 +257,7 @@
             // 
             this.button14.BackColor = System.Drawing.Color.Gainsboro;
             this.button14.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button14.Location = new System.Drawing.Point(867, 361);
+            this.button14.Location = new System.Drawing.Point(867, 387);
             this.button14.Name = "button14";
             this.button14.Size = new System.Drawing.Size(223, 55);
             this.button14.TabIndex = 22;
@@ -940,6 +976,8 @@
             // 
             // tabPage3
             // 
+            this.tabPage3.Controls.Add(this.label32);
+            this.tabPage3.Controls.Add(this.textBox26);
             this.tabPage3.Controls.Add(this.button13);
             this.tabPage3.Controls.Add(this.button12);
             this.tabPage3.Controls.Add(this.label29);
@@ -989,7 +1027,7 @@
             // label29
             // 
             this.label29.AutoSize = true;
-            this.label29.Location = new System.Drawing.Point(186, 730);
+            this.label29.Location = new System.Drawing.Point(188, 686);
             this.label29.Name = "label29";
             this.label29.Size = new System.Drawing.Size(223, 20);
             this.label29.TabIndex = 14;
@@ -998,7 +1036,7 @@
             // label28
             // 
             this.label28.AutoSize = true;
-            this.label28.Location = new System.Drawing.Point(186, 687);
+            this.label28.Location = new System.Drawing.Point(188, 643);
             this.label28.Name = "label28";
             this.label28.Size = new System.Drawing.Size(225, 20);
             this.label28.TabIndex = 13;
@@ -1007,7 +1045,7 @@
             // label27
             // 
             this.label27.AutoSize = true;
-            this.label27.Location = new System.Drawing.Point(276, 646);
+            this.label27.Location = new System.Drawing.Point(278, 602);
             this.label27.Name = "label27";
             this.label27.Size = new System.Drawing.Size(130, 20);
             this.label27.TabIndex = 12;
@@ -1016,7 +1054,7 @@
             // label26
             // 
             this.label26.AutoSize = true;
-            this.label26.Location = new System.Drawing.Point(285, 599);
+            this.label26.Location = new System.Drawing.Point(287, 555);
             this.label26.Name = "label26";
             this.label26.Size = new System.Drawing.Size(121, 20);
             this.label26.TabIndex = 11;
@@ -1025,7 +1063,7 @@
             // textBox23
             // 
             this.textBox23.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textBox23.Location = new System.Drawing.Point(426, 685);
+            this.textBox23.Location = new System.Drawing.Point(428, 641);
             this.textBox23.Name = "textBox23";
             this.textBox23.Size = new System.Drawing.Size(225, 26);
             this.textBox23.TabIndex = 10;
@@ -1033,7 +1071,7 @@
             // textBox24
             // 
             this.textBox24.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textBox24.Location = new System.Drawing.Point(426, 728);
+            this.textBox24.Location = new System.Drawing.Point(428, 684);
             this.textBox24.Name = "textBox24";
             this.textBox24.Size = new System.Drawing.Size(225, 26);
             this.textBox24.TabIndex = 9;
@@ -1041,7 +1079,7 @@
             // textBox22
             // 
             this.textBox22.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textBox22.Location = new System.Drawing.Point(426, 640);
+            this.textBox22.Location = new System.Drawing.Point(428, 596);
             this.textBox22.Name = "textBox22";
             this.textBox22.Size = new System.Drawing.Size(225, 26);
             this.textBox22.TabIndex = 8;
@@ -1049,7 +1087,7 @@
             // textBox21
             // 
             this.textBox21.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textBox21.Location = new System.Drawing.Point(426, 597);
+            this.textBox21.Location = new System.Drawing.Point(428, 553);
             this.textBox21.Name = "textBox21";
             this.textBox21.Size = new System.Drawing.Size(225, 26);
             this.textBox21.TabIndex = 7;
@@ -1057,7 +1095,7 @@
             // textBox20
             // 
             this.textBox20.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textBox20.Location = new System.Drawing.Point(426, 521);
+            this.textBox20.Location = new System.Drawing.Point(428, 477);
             this.textBox20.Name = "textBox20";
             this.textBox20.Size = new System.Drawing.Size(102, 26);
             this.textBox20.TabIndex = 6;
@@ -1065,7 +1103,7 @@
             // label25
             // 
             this.label25.AutoSize = true;
-            this.label25.Location = new System.Drawing.Point(241, 524);
+            this.label25.Location = new System.Drawing.Point(243, 480);
             this.label25.Name = "label25";
             this.label25.Size = new System.Drawing.Size(165, 20);
             this.label25.TabIndex = 5;
@@ -1074,7 +1112,7 @@
             // label24
             // 
             this.label24.AutoSize = true;
-            this.label24.Location = new System.Drawing.Point(37, 523);
+            this.label24.Location = new System.Drawing.Point(39, 479);
             this.label24.Name = "label24";
             this.label24.Size = new System.Drawing.Size(141, 20);
             this.label24.TabIndex = 4;
@@ -1145,15 +1183,22 @@
             // 
             this.columnHeader17.Text = "Время конца";
             // 
-            // label30
+            // label32
             // 
-            this.label30.AutoSize = true;
-            this.label30.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label30.Location = new System.Drawing.Point(626, 287);
-            this.label30.Name = "label30";
-            this.label30.Size = new System.Drawing.Size(203, 20);
-            this.label30.TabIndex = 27;
-            this.label30.Text = "Конечное время 00:00:00:";
+            this.label32.AutoSize = true;
+            this.label32.Location = new System.Drawing.Point(261, 727);
+            this.label32.Name = "label32";
+            this.label32.Size = new System.Drawing.Size(147, 20);
+            this.label32.TabIndex = 18;
+            this.label32.Text = "Изменить пароль:";
+            // 
+            // textBox26
+            // 
+            this.textBox26.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.textBox26.Location = new System.Drawing.Point(428, 725);
+            this.textBox26.Name = "textBox26";
+            this.textBox26.Size = new System.Drawing.Size(225, 26);
+            this.textBox26.TabIndex = 17;
             // 
             // Form1
             // 
@@ -1284,6 +1329,10 @@
         private System.Windows.Forms.TextBox textBox30;
         private System.Windows.Forms.TextBox textBox31;
         private System.Windows.Forms.Label label30;
+        private System.Windows.Forms.Label label31;
+        private System.Windows.Forms.TextBox textBox25;
+        private System.Windows.Forms.Label label32;
+        private System.Windows.Forms.TextBox textBox26;
     }
 }
 

@@ -462,7 +462,7 @@ namespace SQLforTelegramBot
 
         private void button14_Click(object sender, EventArgs e)
         {
-            SqlCommand command = new SqlCommand($"INSERT INTO [PersonalTrainersSchedule] (TrainerName, DayOfWeek, StartTime, EndTime) VALUES (N'{textBox31.Text}', N'{textBox30.Text}', '{textBox29.Text}', '{textBox28.Text}')", sqlConnection);
+            SqlCommand command = new SqlCommand($"INSERT INTO [PersonalTrainersSchedule] (TrainerName, DayOfWeek, StartTime, EndTime, IdOfTrainer) VALUES (N'{textBox31.Text}', N'{textBox30.Text}', '{textBox29.Text}', '{textBox28.Text}', '{textBox25.Text}')", sqlConnection);
             MessageBox.Show(command.ExecuteNonQuery().ToString());
             MessageBox.Show("Расписание добавлено!");
         }
@@ -475,7 +475,7 @@ namespace SQLforTelegramBot
             string day = textBox22.Text;
             string start = textBox23.Text;
             string end = textBox24.Text;
-            
+            string password = textBox26.Text;
 
             // Формируем запрос на обновление данных в базе
             string updateQuery = "UPDATE PersonalTrainersSchedule SET ";
@@ -504,7 +504,13 @@ namespace SQLforTelegramBot
                 updateQuery += "EndTime = N'" + end + "'";
                 needComma = true;
             }
-            
+            if (!string.IsNullOrEmpty(password))
+            {
+                if (needComma) updateQuery += ", ";
+                updateQuery += "IdOfTrainer = N'" + password + "'";
+                needComma = true;
+            }
+
 
             updateQuery += " WHERE ScheduleId = " + trainerId;
 
@@ -551,5 +557,7 @@ namespace SQLforTelegramBot
                 }
             }
         }
+
+        
     }
 }
