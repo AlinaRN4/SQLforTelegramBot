@@ -11,6 +11,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.IO;
 using System.Data.Common;
+using System.Globalization;
 
 
 namespace SQLforTelegramBot
@@ -92,7 +93,8 @@ namespace SQLforTelegramBot
 
         private void button1_Click(object sender, EventArgs e)
         {
-            SqlCommand command = new SqlCommand($"INSERT INTO [Clients] (Name, Surname, NumberOfPhone, StartDay, EndDay, GymMembership, NumberOfCard) VALUES (N'{textBox1.Text}', N'{textBox2.Text}', '{textBox3.Text}', '{textBox4.Text}', '{textBox5.Text}', N'{textBox6.Text}', '{textBox7.Text}')", sqlConnection);
+
+            SqlCommand command = new SqlCommand($"INSERT INTO [Clients] (Name, Surname, NumberOfPhone, StartDay, EndDay, GymMembership, NumberOfCard) VALUES (N'{textBox1.Text}', N'{textBox2.Text}', '{textBox3.Text}', '{DateTime.ParseExact(textBox4.Text, "dd.MM.yyyy", CultureInfo.InvariantCulture).ToString("yyyy-MM-dd")}', '{DateTime.ParseExact(textBox5.Text, "dd.MM.yyyy", CultureInfo.InvariantCulture).ToString("yyyy-MM-dd")}', N'{textBox6.Text}', '{textBox7.Text}')", sqlConnection);
             MessageBox.Show(command.ExecuteNonQuery().ToString());
             MessageBox.Show("Клиент успешно добавлен в базу данных!");
         }
