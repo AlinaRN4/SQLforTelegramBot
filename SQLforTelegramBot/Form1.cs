@@ -30,7 +30,6 @@ namespace SQLforTelegramBot
         private List<string[]> news = new List<string[]>();
         private List<string[]> messages = new List<string[]>();
         private List<string[]> trainers = new List<string[]>();
-
         private void Form1_Load_1(object sender, EventArgs e)
         {
             sqlConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["TestDB"].ConnectionString);
@@ -41,8 +40,20 @@ namespace SQLforTelegramBot
             {
                 MessageBox.Show("Подключение установлено!");
             }
+        }
 
+        private void RefreshList(List<string[]> data, ListView listView)
+        {
+            listView.Items.Clear();
+            foreach (var item in data)
+            {
+                listView.Items.Add(new ListViewItem(item));
+            }
+        }
 
+        //Показ клиентов через ListView
+        private void button15_Click(object sender, EventArgs e)
+        {
             SqlDataReader dataReader = null;
             string[] row = null;
             try
@@ -80,32 +91,76 @@ namespace SQLforTelegramBot
                 }
             }
             RefreshList(rows, listView2);
-
         }
-        private void RefreshList(List<string[]> data, ListView listView)
-        {
-            listView.Items.Clear();
-            foreach (var item in data)
-            {
-                listView.Items.Add(new ListViewItem(item));
-            }
-        }
-
+        //Добавление клиентов
         private void button1_Click(object sender, EventArgs e)
         {
 
-            SqlCommand command = new SqlCommand($"INSERT INTO [Clients] (Name, Surname, NumberOfPhone, StartDay, EndDay, GymMembership, NumberOfCard) VALUES (N'{textBox1.Text}', N'{textBox2.Text}', '{textBox3.Text}', '{DateTime.ParseExact(textBox4.Text, "dd.MM.yyyy", CultureInfo.InvariantCulture).ToString("yyyy-MM-dd")}', '{DateTime.ParseExact(textBox5.Text, "dd.MM.yyyy", CultureInfo.InvariantCulture).ToString("yyyy-MM-dd")}', N'{textBox6.Text}', '{textBox7.Text}')", sqlConnection);
-            MessageBox.Show(command.ExecuteNonQuery().ToString());
-            MessageBox.Show("Клиент успешно добавлен в базу данных!");
+            try
+            {
+                if (string.IsNullOrEmpty(textBox1.Text) || string.IsNullOrEmpty(textBox2.Text) || string.IsNullOrEmpty(textBox3.Text) || string.IsNullOrEmpty(textBox6.Text) || string.IsNullOrEmpty(textBox7.Text))
+                {
+                    MessageBox.Show("Пожалуйста, заполните все поля.");
+                    return;
+                }
+
+                SqlCommand command = new SqlCommand($"INSERT INTO [Clients] (Name, Surname, NumberOfPhone, StartDay, EndDay, GymMembership, NumberOfCard) VALUES (N'{textBox1.Text}', N'{textBox2.Text}', '{textBox3.Text}', '{dateTimePicker1.Value.ToString("yyyy-MM-dd")}', '{dateTimePicker2.Value.ToString("yyyy-MM-dd")}', N'{textBox6.Text}', '{textBox7.Text}')", sqlConnection);
+                int rowsAffected = command.ExecuteNonQuery();
+                // Проверка уникальности номера абонемента
+                SqlCommand checkCommand = new SqlCommand($"SELECT COUNT(*) FROM [Clients] WHERE NumberOfCard = '{textBox7.Text}'", sqlConnection);
+                int existingCount = (int)checkCommand.ExecuteScalar();
+
+                if (existingCount > 0)
+                {
+                    MessageBox.Show("Клиент с таким номером абонемента уже существует.");
+                    return;
+                }
+
+                else if (rowsAffected > 0)
+                {
+                    MessageBox.Show("Клиент успешно добавлен в базу данных!");
+                }
+                else
+                {
+                    MessageBox.Show("Произошла ошибка при добавлении клиента.");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Произошла ошибка: " + ex.Message);
+            }
         }
 
+        //Добавление новостей
         private void button2_Click(object sender, EventArgs e)
         {
-            SqlCommand command = new SqlCommand($"INSERT INTO [NewsOfGym] (news) VALUES (N'{richTextBox1.Text}')", sqlConnection);
-            MessageBox.Show(command.ExecuteNonQuery().ToString());
-            MessageBox.Show("Новости успешно добавлены!");
+            try
+            {
+                if (string.IsNullOrEmpty(richTextBox1.Text))
+                {
+                    MessageBox.Show("Пожалуйста, заполните поле.");
+                    return;
+                }
+
+                SqlCommand command = new SqlCommand($"INSERT INTO [NewsOfGym] (news) VALUES (N'{richTextBox1.Text}')", sqlConnection);
+                int rowsAffected = command.ExecuteNonQuery();
+
+                if (rowsAffected > 0)
+                {
+                    MessageBox.Show("Новости успешно добавлены!");
+                }
+                else
+                {
+                    MessageBox.Show("Произошла ошибка при добавлении.");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Произошла ошибка: " + ex.Message);
+            }
         }
 
+        //Help
         private void button3_Click(object sender, EventArgs e)
         {
             string commandText = @"C:\Users\user\source\repos\SQLforTelegramBot\SQLforTelegramBot\Help.chm";
@@ -117,54 +172,35 @@ namespace SQLforTelegramBot
 
         }
 
+        //Добавление цитаты
         private void button4_Click(object sender, EventArgs e)
         {
-            SqlCommand command = new SqlCommand($"INSERT INTO [MotivationalMessages] (message) VALUES (N'{richTextBox2.Text}')", sqlConnection);
-            MessageBox.Show(command.ExecuteNonQuery().ToString());
-            MessageBox.Show("Цитата успешно добавлена!");
+            try
+            {
+                if (string.IsNullOrEmpty(richTextBox2.Text))
+                {
+                    MessageBox.Show("Пожалуйста, заполните поле.");
+                    return;
+                }
+
+                SqlCommand command = new SqlCommand($"INSERT INTO [MotivationalMessages] (message) VALUES (N'{richTextBox2.Text}')", sqlConnection);
+                int rowsAffected = command.ExecuteNonQuery();
+
+                if (rowsAffected > 0)
+                {
+                    MessageBox.Show("Цитата успешно добавлена!");
+                }
+                else
+                {
+                    MessageBox.Show("Произошла ошибка при добавлении.");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Произошла ошибка: " + ex.Message);
+            }
         }
 
-
-
-        //private void button6_Click(object sender, EventArgs e)
-        //{
-        //    listView1.Items.Clear();
-
-        //    SqlDataReader dataReader = null;
-
-        //    try
-        //    {
-        //        SqlCommand sqlCommand = new SqlCommand("SELECT Name, Surname, NumberOfPhone, StartDay, EndDay, GymMembership, NumberOfCard FROM Clients", sqlConnection);
-
-        //        dataReader = sqlCommand.ExecuteReader();
-
-        //        ListViewItem item = null;
-        //        while (dataReader.Read())
-        //        {
-        //            item = new ListViewItem(new string[] { Convert.ToString(dataReader["Name"]) ,
-        //            Convert.ToString(dataReader["Surname"]),
-        //            Convert.ToString(dataReader["NumberOfPhone"]),
-        //            Convert.ToString(dataReader["StartDay"]),
-        //            Convert.ToString(dataReader["EndDay"]),
-        //            Convert.ToString(dataReader["GymMembership"]),
-        //            Convert.ToString(dataReader["NumberOfCard"])});
-
-        //            listView1.Items.Add(item);
-        //        }
-
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        MessageBox.Show(ex.Message);
-        //    }
-        //    finally
-        //    {
-        //        if (dataReader != null && !dataReader.IsClosed)
-        //        {
-        //            dataReader.Close();
-        //        }
-        //    }
-        //}
 
         private void textBox8_TextChanged(object sender, EventArgs e)
         {
@@ -174,6 +210,7 @@ namespace SQLforTelegramBot
             RefreshList(filteredList, listView2);
         }
 
+        //Редактирование клиентов
         private void button5_Click(object sender, EventArgs e)
         {
 
@@ -251,6 +288,7 @@ namespace SQLforTelegramBot
 
         }
 
+        //Удаление клиентов
         private void button6_Click(object sender, EventArgs e)
         {
             string clientId = textBox9.Text;
@@ -282,7 +320,7 @@ namespace SQLforTelegramBot
         }
 
 
-
+        //Показ новостей через ListView
         private void button7_Click(object sender, EventArgs e)
         {
             SqlDataReader dataReader = null;
@@ -319,6 +357,7 @@ namespace SQLforTelegramBot
             RefreshList(news, listView1);
         }
 
+        //Показ цитат через ListView
         private void button8_Click(object sender, EventArgs e)
         {
             SqlDataReader dataReader = null;
@@ -355,6 +394,7 @@ namespace SQLforTelegramBot
             RefreshList(messages, listView3);
         }
 
+        //Удаление новости по айди
         private void button9_Click(object sender, EventArgs e)
         {
             string newsId = textBox17.Text;
@@ -385,6 +425,7 @@ namespace SQLforTelegramBot
             }
         }
 
+        //Удаление цитаты по айди
         private void button10_Click(object sender, EventArgs e)
         {
             string messageId = textBox18.Text;
@@ -415,13 +456,14 @@ namespace SQLforTelegramBot
             }
         }
 
+        //Показ расписания тренеров
         private void button11_Click(object sender, EventArgs e)
         {
             SqlDataReader dataReader = null;
             string[] trainer = null;
             try
             {
-                SqlCommand sqlCommand = new SqlCommand("SELECT ScheduleId, TrainerName, DayOfWeek, StartTime, EndTime FROM PersonalTrainersSchedule", sqlConnection);
+                SqlCommand sqlCommand = new SqlCommand("SELECT ScheduleId, TrainerName, DayOfWeek, StartTime, EndTime, IdOfTrainer FROM PersonalTrainersSchedule", sqlConnection);
 
                 dataReader = sqlCommand.ExecuteReader();
 
@@ -434,6 +476,8 @@ namespace SQLforTelegramBot
                      Convert.ToString(dataReader["DayOfWeek"]),
                     Convert.ToString(dataReader["StartTime"]),
                      Convert.ToString(dataReader["EndTime"]),
+                    Convert.ToString(dataReader["IdOfTrainer"]),
+
                    };
 
                     trainers.Add(trainer);
@@ -454,6 +498,7 @@ namespace SQLforTelegramBot
             RefreshList(trainers, listView4);
         }
 
+        //Поиск для расписания
         private void textBox19_TextChanged(object sender, EventArgs e)
         {
             filteredList = trainers.Where((x) =>
@@ -462,13 +507,36 @@ namespace SQLforTelegramBot
             RefreshList(filteredList, listView4);
         }
 
+        //Добавление расписания тренеров
         private void button14_Click(object sender, EventArgs e)
         {
-            SqlCommand command = new SqlCommand($"INSERT INTO [PersonalTrainersSchedule] (TrainerName, DayOfWeek, StartTime, EndTime, IdOfTrainer) VALUES (N'{textBox31.Text}', N'{textBox30.Text}', '{textBox29.Text}', '{textBox28.Text}', '{textBox25.Text}')", sqlConnection);
-            MessageBox.Show(command.ExecuteNonQuery().ToString());
-            MessageBox.Show("Расписание добавлено!");
+            try
+            {
+                if (string.IsNullOrEmpty(textBox31.Text) || string.IsNullOrEmpty(textBox30.Text) || string.IsNullOrEmpty(textBox29.Text) || string.IsNullOrEmpty(textBox28.Text)|| string.IsNullOrEmpty(textBox25.Text))
+                {
+                    MessageBox.Show("Пожалуйста, заполните поле.");
+                    return;
+                }
+
+                SqlCommand command = new SqlCommand($"INSERT INTO [PersonalTrainersSchedule] (TrainerName, DayOfWeek, StartTime, EndTime, IdOfTrainer) VALUES (N'{textBox31.Text}', N'{textBox30.Text}', '{textBox29.Text}', '{textBox28.Text}', '{textBox25.Text}')", sqlConnection);
+                int rowsAffected = command.ExecuteNonQuery();
+
+                if (rowsAffected > 0)
+                {
+                    MessageBox.Show("Расписание добавлено!");
+                }
+                else
+                {
+                    MessageBox.Show("Произошла ошибка при добавлении.");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Произошла ошибка: " + ex.Message);
+            }
         }
 
+        //Редактирование расписания тренеров
         private void button12_Click(object sender, EventArgs e)
         {
             // Получаем значения из текстовых полей
@@ -530,6 +598,7 @@ namespace SQLforTelegramBot
             RefreshList(trainers, listView4);
         }
 
+        //Удаление расписания
         private void button13_Click(object sender, EventArgs e)
         {
             string trainerId = textBox20.Text;
