@@ -138,6 +138,8 @@
             this.columnHeader17 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader18 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.button15 = new System.Windows.Forms.Button();
+            this.dateTimePicker3 = new System.Windows.Forms.DateTimePicker();
+            this.dateTimePicker4 = new System.Windows.Forms.DateTimePicker();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -701,6 +703,8 @@
             // 
             // tabPage5
             // 
+            this.tabPage5.Controls.Add(this.dateTimePicker4);
+            this.tabPage5.Controls.Add(this.dateTimePicker3);
             this.tabPage5.Controls.Add(this.button15);
             this.tabPage5.Controls.Add(this.button6);
             this.tabPage5.Controls.Add(this.button5);
@@ -802,7 +806,7 @@
             // textBox14
             // 
             this.textBox14.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textBox14.Location = new System.Drawing.Point(433, 663);
+            this.textBox14.Location = new System.Drawing.Point(785, 356);
             this.textBox14.Name = "textBox14";
             this.textBox14.Size = new System.Drawing.Size(237, 26);
             this.textBox14.TabIndex = 16;
@@ -811,7 +815,7 @@
             // 
             this.label17.AutoSize = true;
             this.label17.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label17.Location = new System.Drawing.Point(227, 619);
+            this.label17.Location = new System.Drawing.Point(227, 618);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(187, 20);
             this.label17.TabIndex = 15;
@@ -820,7 +824,7 @@
             // textBox13
             // 
             this.textBox13.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textBox13.Location = new System.Drawing.Point(433, 613);
+            this.textBox13.Location = new System.Drawing.Point(785, 303);
             this.textBox13.Name = "textBox13";
             this.textBox13.Size = new System.Drawing.Size(237, 26);
             this.textBox13.TabIndex = 14;
@@ -1220,6 +1224,20 @@
             this.button15.UseVisualStyleBackColor = false;
             this.button15.Click += new System.EventHandler(this.button15_Click);
             // 
+            // dateTimePicker3
+            // 
+            this.dateTimePicker3.Location = new System.Drawing.Point(433, 614);
+            this.dateTimePicker3.Name = "dateTimePicker3";
+            this.dateTimePicker3.Size = new System.Drawing.Size(237, 26);
+            this.dateTimePicker3.TabIndex = 25;
+            // 
+            // dateTimePicker4
+            // 
+            this.dateTimePicker4.Location = new System.Drawing.Point(433, 663);
+            this.dateTimePicker4.Name = "dateTimePicker4";
+            this.dateTimePicker4.Size = new System.Drawing.Size(237, 26);
+            this.dateTimePicker4.TabIndex = 26;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
@@ -1355,6 +1373,8 @@
         private System.Windows.Forms.Label label33;
         private System.Windows.Forms.ColumnHeader columnHeader18;
         private System.Windows.Forms.Button button15;
+        private System.Windows.Forms.DateTimePicker dateTimePicker4;
+        private System.Windows.Forms.DateTimePicker dateTimePicker3;
     }
 }
 

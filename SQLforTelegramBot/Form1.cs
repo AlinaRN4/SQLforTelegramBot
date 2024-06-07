@@ -219,8 +219,8 @@ namespace SQLforTelegramBot
             string name = textBox10.Text;
             string surname = textBox11.Text;
             string numberOfPhone = textBox12.Text;
-            string startDay = textBox13.Text;
-            string endDay = textBox14.Text;
+            DateTime startDay = dateTimePicker3.Value;
+            DateTime endDay = dateTimePicker4.Value;
             string gymMembership = textBox15.Text;
             string numberOfCard = textBox16.Text;
 
@@ -245,16 +245,16 @@ namespace SQLforTelegramBot
                 updateQuery += "NumberOfPhone = N'" + numberOfPhone + "'";
                 needComma = true;
             }
-            if (!string.IsNullOrEmpty(startDay))
+            if (startDay != DateTime.MinValue)
             {
                 if (needComma) updateQuery += ", ";
-                updateQuery += "StartDay = N'" + startDay + "'";
+                updateQuery += "StartDay = '" + startDay.ToString("yyyy-MM-dd") + "'";
                 needComma = true;
             }
-            if (!string.IsNullOrEmpty(endDay))
+            if (endDay != DateTime.MinValue)
             {
                 if (needComma) updateQuery += ", ";
-                updateQuery += "EndDay = N'" + endDay + "'";
+                updateQuery += "EndDay = '" + endDay.ToString("yyyy-MM-dd") + "'";
                 needComma = true;
             }
             if (!string.IsNullOrEmpty(gymMembership))
@@ -267,12 +267,11 @@ namespace SQLforTelegramBot
             {
                 if (needComma) updateQuery += ", ";
                 updateQuery += "NumberOfCard = N'" + numberOfCard + "'";
-                needComma = true;
+                needComma = true;              
             }
 
-
             updateQuery += " WHERE Id = " + clientId;
-
+    
             // Выполняем запрос на обновление данных в базе
             try
             {
